@@ -48,4 +48,18 @@ final class FizzBuzzTest {
         // ASSERT
         assertEquals("Buzz", value);
     }
+
+    @Test
+    @DisplayName("Should return FizzBuzz when number is multiple of three and five")
+    void should_return_fizzbuzz_when_number_is_multiple_of_three_and_five() {
+        // ARRANGE
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        int number = 15;
+
+        // ACT
+        String value = fizzBuzz.print(number);
+
+        // ASSERT
+        assertEquals("FizzBuzz", value);
+    }
 }
