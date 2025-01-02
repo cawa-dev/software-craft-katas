@@ -5,6 +5,10 @@ public record FizzBuzz() {
     private static final int FIZZ_MULTIPLIER = 3;
 
     public String print(int number) {
+        if (number % 5 == 0) {
+            return "Buzz";
+        }
+
         if (number % FIZZ_MULTIPLIER == 0) {
             return "Fizz";
         }
