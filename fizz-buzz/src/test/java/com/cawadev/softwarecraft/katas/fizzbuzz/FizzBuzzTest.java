@@ -20,4 +20,18 @@ final class FizzBuzzTest {
         // ASSERT
         assertEquals("1", value);
     }
+
+    @Test
+    @DisplayName("Should return Fizz when number is multiple of three")
+    void should_return_fizz_when_number_is_multiple_of_three() {
+        // ARRANGE
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        int number = 3;
+
+        // ACT
+        String value = fizzBuzz.print(number);
+
+        // ASSERT
+        assertEquals("Fizz", value);
+    }
 }
