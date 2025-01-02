@@ -1,23 +1,30 @@
 package com.cawadev.softwarecraft.katas.fizzbuzz;
 
-public record FizzBuzz() {
+class FizzBuzz {
 
     private static final int BUZZ_MULTIPLIER = 5;
     private static final int FIZZ_MULTIPLIER = 3;
+    private static final String BUZZ = "Buzz";
+    private static final String FIZZ = "Fizz";
 
-    public String print(int number) {
-        if (number % FIZZ_MULTIPLIER == 0 && number % BUZZ_MULTIPLIER == 0) {
-            return "FizzBuzz";
+    public String evaluate(int number) {
+        if (isMultipleOf(number, FIZZ_MULTIPLIER)
+                && isMultipleOf(number, BUZZ_MULTIPLIER)) {
+            return FIZZ + BUZZ;
         }
 
-        if (number % BUZZ_MULTIPLIER == 0) {
-            return "Buzz";
+        if (isMultipleOf(number, BUZZ_MULTIPLIER)) {
+            return BUZZ;
         }
 
-        if (number % FIZZ_MULTIPLIER == 0) {
-            return "Fizz";
+        if (isMultipleOf(number, FIZZ_MULTIPLIER)) {
+            return FIZZ;
         }
 
         return String.valueOf(number);
+    }
+
+    private boolean isMultipleOf(int number, int divider) {
+        return number % divider == 0;
     }
 }
