@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>fizz-buzz</module>
+        <module>fizz-buzz-java</module>
     </modules>
 
     <properties>

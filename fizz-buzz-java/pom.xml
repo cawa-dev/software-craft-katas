@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>fizz-buzz</artifactId>
+    <artifactId>fizz-buzz-java</artifactId>
 
     <dependencies>
         <dependency>
