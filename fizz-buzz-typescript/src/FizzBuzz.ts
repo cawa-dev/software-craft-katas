@@ -2,6 +2,10 @@ export const fizzBuzz: {
     evaluate: (number: number) => string
 } = ({
     evaluate: (number: number): string => {
+        if (number % 3 == 0 && number % 5 == 0) {
+            return "FizzBuzz";
+        }
+
         if (number % 5 == 0) {
             return "Buzz";
         }

@@ -35,4 +35,15 @@ describe(('FizzBuzz'), () => {
         // Assert
         expect(value).toBe("Buzz")
     });
+
+    it("Should return FizzBuzz when number is multiple of three and five", () => {
+        // Arrange
+        const number: number = 15;
+
+        // Act
+        const value: string = fizzBuzz.evaluate(number);
+
+        // Assert
+        expect(value).toBe("FizzBuzz")
+    });
 });
