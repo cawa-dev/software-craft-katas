@@ -4,16 +4,11 @@ internal class FizzBuzz
 {
     public string Evaluate(int number)
     {
-        if (number % 5 == 0)
+        return number switch
         {
-            return "Buzz";
-        }
-
-        if (number % 3 == 0)
-        {
-            return "Fizz";
-        }
-
-        return number.ToString();
+            3 => "Fizz",
+            5 => "Buzz",
+            _ => number.ToString()
+        };
     }
 }
