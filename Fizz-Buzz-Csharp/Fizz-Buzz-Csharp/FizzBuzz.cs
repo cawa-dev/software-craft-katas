@@ -4,11 +4,6 @@ internal class FizzBuzz
 {
     public string Evaluate(int number)
     {
-        if (number % 3 == 0)
-        {
-            return "Fizz";
-        }
-        
-        return number.ToString();
+        return number % 3 == 0 ? "Fizz" : number.ToString();
     }
 }
