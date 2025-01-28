@@ -1,8 +1,8 @@
 namespace Fizz_Buzz_Csharp;
 
-public class FizzBuzz
+internal class FizzBuzz
 {
-    public String Evaluate(int number)
+    public string Evaluate(int number)
     {
         return number.ToString();
     }

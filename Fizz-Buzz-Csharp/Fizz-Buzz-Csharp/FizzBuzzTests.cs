@@ -6,7 +6,7 @@ internal class FizzBuzzTests
     public void Should_Return_Same_Number_When_It_Is_Not_Multiple_Of_3_Or_5()
     {
         // Arrange
-        var number = 1;
+        const int number = 1;
         var fizzBuzz = new FizzBuzz();
 
         // Act
