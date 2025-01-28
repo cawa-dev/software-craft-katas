@@ -6,8 +6,9 @@ internal class FizzBuzz
     {
         return number switch
         {
-            3 => "Fizz",
-            5 => "Buzz",
+            _ when number % 15 == 0 => "FizzBuzz",
+            _ when number % 5 == 0 => "Buzz",
+            _ when number % 3 == 0 => "Fizz",
             _ => number.ToString()
         };
     }
