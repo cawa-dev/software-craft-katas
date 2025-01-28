@@ -39,3 +39,13 @@ build/
 
 ### Idea ###
 .idea/
+
+### Rider ###
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.sln
+*.vscode
+*.vs
