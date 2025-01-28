@@ -29,4 +29,18 @@ internal class FizzBuzzTests
         // Assert
         Assert.That(value, Is.EqualTo("Fizz"));
     }
+    
+    [Test]
+    public void Should_Return_Buzz_When_It_Is_Multiple_Of_Five()
+    {
+        // Arrange
+        const int number = 5;
+        var fizzBuzz = new FizzBuzz();
+
+        // Act
+        var value = fizzBuzz.Evaluate(number);
+
+        // Assert
+        Assert.That(value, Is.EqualTo("Buzz"));
+    }
 }
