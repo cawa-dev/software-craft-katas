@@ -90,6 +90,18 @@ class StringCalculatorTest {
     }
 
     @Test
+    void should_return_the_sum_of_numbers_separate_by_a_new_line_and_a_comma_in_the_string() {
+        // Arrange
+        String numbers = "1\n2,3";
+
+        // Act
+        int result = stringCalculator.add(numbers);
+
+        // Assert
+        assertThat(result).isEqualTo(6);
+    }
+
+    @Test
     void should_throw_a_delimiter_exception_when_there_is_comma_and_new_line_together() {
         // Arrange
         String stringWithTwoDelimiters = "1,\n";

@@ -7,7 +7,7 @@ import java.util.Arrays;
 class StringCalculator {
 
     private static final String SPACE = " ";
-    private static final String NEW_LINE_DELIMITER = "\\r?\\n";
+    private static final String NEW_LINE_DELIMITER = "\n";
     private static final String COMMA_DELIMITER = ",";
     private static final String COMMA_AND_NEW_LINE_DELIMITER =
             "[" + COMMA_DELIMITER + NEW_LINE_DELIMITER + "]";
