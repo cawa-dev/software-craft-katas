@@ -1,6 +1,7 @@
 package com.cawadev.softwarecraft.katas.stringcalculator;
 
 import com.cawadev.softwarecraft.katas.stringcalculator.exception.DelimiterException;
+import com.cawadev.softwarecraft.katas.stringcalculator.exception.NegativeNumberException;
 
 import java.util.Arrays;
 
@@ -22,7 +23,20 @@ class StringCalculator {
 
         final var numbersArray = splitNumbers(stringWithoutSpaces);
 
+        checkNegativeNumbers(numbersArray);
+
         return sumOfNumbers(numbersArray);
+    }
+
+    private void checkNegativeNumbers(String[] numbersArray) {
+        final String[] negativeNumbers = Arrays.stream(numbersArray)
+                .filter(number -> number.startsWith("-"))
+                .toArray(String[]::new);
+
+        if (negativeNumbers.length > 0) {
+            throw new NegativeNumberException("Negatives not allowed: "
+                    + String.join(", ", negativeNumbers));
+        }
     }
 
     private void checkDelimiters(String stringWithoutSpaces) {

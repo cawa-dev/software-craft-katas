@@ -1,6 +1,7 @@
 package com.cawadev.softwarecraft.katas.stringcalculator;
 
 import com.cawadev.softwarecraft.katas.stringcalculator.exception.DelimiterException;
+import com.cawadev.softwarecraft.katas.stringcalculator.exception.NegativeNumberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -121,5 +122,16 @@ class StringCalculatorTest {
         assertThatExceptionOfType(DelimiterException.class)
                 .isThrownBy(() -> stringCalculator.add(stringWithTwoDelimiters))
                 .withMessage("Two delimiters together are not allowed");
+    }
+
+    @Test
+    void should_throw_a_negative_number_exception_when_there_is_negative_numbers_in_the_string() {
+        // Arrange
+        String stringWithNegativeNumber = "1,-2,-3";
+
+        // Act & Assert
+        assertThatExceptionOfType(NegativeNumberException.class)
+                .isThrownBy(() -> stringCalculator.add(stringWithNegativeNumber))
+                .withMessage("Negatives not allowed: -2, -3");
     }
 }
