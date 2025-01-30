@@ -62,4 +62,28 @@ class StringCalculatorTest {
         // Assert
         assertThat(result).isEqualTo(3);
     }
+
+    @Test
+    void should_return_the_sum_of_numbers_separate_by_a_new_line_in_the_string() {
+        // Arrange
+        String numbers = "3\n3";
+
+        // Act
+        int result = stringCalculator.add(numbers);
+
+        // Assert
+        assertThat(result).isEqualTo(6);
+    }
+
+    @Test
+    void should_return_the_sum_of_numbers_separate_by_a_new_line_in_the_string_with_spaces() {
+        // Arrange
+        String numbers = "10 \n 12";
+
+        // Act
+        int result = stringCalculator.add(numbers);
+
+        // Assert
+        assertThat(result).isEqualTo(22);
+    }
 }

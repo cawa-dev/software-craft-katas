@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 class StringCalculator {
 
-    private static final String SPACE = "\\s+";
-    private static final String COMMA_DELIMITER = ",";
+    private static final String SPACE = " ";
+    public static final String COMMA_AND_NEW_LINE_DELIMITER = "[,\\r?\\n]";
 
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
@@ -24,7 +24,7 @@ class StringCalculator {
     }
 
     private static String[] splitNumbers(String stringWithoutSpaces) {
-        return stringWithoutSpaces.split(COMMA_DELIMITER);
+        return stringWithoutSpaces.split(COMMA_AND_NEW_LINE_DELIMITER);
     }
 
     private static String removeSpaces(String numbers) {
