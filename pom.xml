@@ -11,6 +11,7 @@
 
     <modules>
         <module>fizz-buzz-java</module>
+        <module>string-calculator-java</module>
     </modules>
 
     <properties>
