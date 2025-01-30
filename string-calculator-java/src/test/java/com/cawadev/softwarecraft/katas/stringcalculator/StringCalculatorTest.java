@@ -25,4 +25,17 @@ class StringCalculatorTest {
         // Assert
         assertThat(result).isEqualTo(0);
     }
+
+    @Test
+    void should_return_the_same_number_when_one_number_is_passed() {
+        // Arrange
+        String number = "1";
+
+        // Act
+        int result = stringCalculator.add(number);
+
+
+        // Assert
+        assertThat(result).isEqualTo(1);
+    }
 }
