@@ -7,7 +7,11 @@ import java.util.Arrays;
 class StringCalculator {
 
     private static final String SPACE = " ";
-    public static final String COMMA_AND_NEW_LINE_DELIMITER = "[,\\r?\\n]";
+    private static final String NEW_LINE_DELIMITER = "\\r?\\n";
+    private static final String COMMA_DELIMITER = ",";
+    private static final String COMMA_AND_NEW_LINE_DELIMITER =
+            "[" + COMMA_DELIMITER + NEW_LINE_DELIMITER + "]";
+
 
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
@@ -22,8 +26,8 @@ class StringCalculator {
     }
 
     private void checkDelimiters(String stringWithoutSpaces) {
-        if (stringWithoutSpaces.contains(",\n")
-                || stringWithoutSpaces.contains("\n,")) {
+        if (stringWithoutSpaces.contains(COMMA_DELIMITER + NEW_LINE_DELIMITER)
+                || stringWithoutSpaces.contains(NEW_LINE_DELIMITER + COMMA_DELIMITER)) {
             throw new DelimiterException("Two delimiters together are not allowed");
         }
     }
