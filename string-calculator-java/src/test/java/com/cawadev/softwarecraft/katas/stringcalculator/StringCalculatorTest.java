@@ -40,7 +40,7 @@ class StringCalculatorTest {
     }
 
     @Test
-    void should_return_the_sum_of_the_number_separate_by_comma_in_the_string() {
+    void should_return_the_sum_of_the_numbers_separate_by_comma_in_the_string() {
         // Arrange
         String numbers = "5,4";
 
