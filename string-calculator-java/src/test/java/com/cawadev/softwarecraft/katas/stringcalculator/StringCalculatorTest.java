@@ -1,9 +1,11 @@
 package com.cawadev.softwarecraft.katas.stringcalculator;
 
+import com.cawadev.softwarecraft.katas.stringcalculator.exception.DelimiterException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class StringCalculatorTest {
 
@@ -85,5 +87,27 @@ class StringCalculatorTest {
 
         // Assert
         assertThat(result).isEqualTo(22);
+    }
+
+    @Test
+    void should_throw_a_delimiter_exception_when_there_is_comma_and_new_line_together() {
+        // Arrange
+        String stringWithTwoDelimiters = "1,\n";
+
+        // Act & Assert
+        assertThatExceptionOfType(DelimiterException.class)
+                .isThrownBy(() -> stringCalculator.add(stringWithTwoDelimiters))
+                .withMessage("Two delimiters together are not allowed");
+    }
+
+    @Test
+    void should_throw_a_delimiter_exception_when_there_is_new_line_and_comma_together() {
+        // Arrange
+        String stringWithTwoDelimiters = "1\n,";
+
+        // Act & Assert
+        assertThatExceptionOfType(DelimiterException.class)
+                .isThrownBy(() -> stringCalculator.add(stringWithTwoDelimiters))
+                .withMessage("Two delimiters together are not allowed");
     }
 }

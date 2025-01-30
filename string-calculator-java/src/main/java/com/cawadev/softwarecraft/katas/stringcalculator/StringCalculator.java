@@ -1,5 +1,7 @@
 package com.cawadev.softwarecraft.katas.stringcalculator;
 
+import com.cawadev.softwarecraft.katas.stringcalculator.exception.DelimiterException;
+
 import java.util.Arrays;
 
 class StringCalculator {
@@ -12,9 +14,18 @@ class StringCalculator {
 
         final var stringWithoutSpaces = removeSpaces(numbers);
 
+        checkDelimiters(stringWithoutSpaces);
+
         final var numbersArray = splitNumbers(stringWithoutSpaces);
 
         return sumOfNumbers(numbersArray);
+    }
+
+    private void checkDelimiters(String stringWithoutSpaces) {
+        if (stringWithoutSpaces.contains(",\n")
+                || stringWithoutSpaces.contains("\n,")) {
+            throw new DelimiterException("Two delimiters together are not allowed");
+        }
     }
 
     private static int sumOfNumbers(String[] numbersArray) {
