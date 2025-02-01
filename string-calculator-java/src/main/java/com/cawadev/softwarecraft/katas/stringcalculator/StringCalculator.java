@@ -12,6 +12,7 @@ class StringCalculator {
     private static final String COMMA_DELIMITER = ",";
     private static final String COMMA_AND_NEW_LINE_DELIMITER =
             "[" + COMMA_DELIMITER + NEW_LINE_DELIMITER + "]";
+    private static final int MAX_ALLOWED_NUMBER = 1000;
 
 
     public int add(String numbers) {
@@ -28,6 +29,13 @@ class StringCalculator {
         return sumOfNumbers(numbersArray);
     }
 
+    private int sumOfNumbers(String[] numbersArray) {
+        return Arrays.stream(numbersArray)
+                .mapToInt(Integer::parseInt)
+                .filter(number -> number < MAX_ALLOWED_NUMBER)
+                .sum();
+    }
+
     private void checkNegativeNumbers(String[] numbersArray) {
         final String[] negativeNumbers = Arrays.stream(numbersArray)
                 .filter(number -> number.startsWith("-"))
@@ -39,6 +47,10 @@ class StringCalculator {
         }
     }
 
+    private String[] splitNumbers(String stringWithoutSpaces) {
+        return stringWithoutSpaces.split(COMMA_AND_NEW_LINE_DELIMITER);
+    }
+
     private void checkDelimiters(String stringWithoutSpaces) {
         if (stringWithoutSpaces.contains(COMMA_DELIMITER + NEW_LINE_DELIMITER)
                 || stringWithoutSpaces.contains(NEW_LINE_DELIMITER + COMMA_DELIMITER)) {
@@ -46,18 +58,7 @@ class StringCalculator {
         }
     }
 
-    private static int sumOfNumbers(String[] numbersArray) {
-        return Arrays.stream(numbersArray)
-                .mapToInt(Integer::parseInt)
-                .filter(number ->  number < 1000)
-                .sum();
-    }
-
-    private static String[] splitNumbers(String stringWithoutSpaces) {
-        return stringWithoutSpaces.split(COMMA_AND_NEW_LINE_DELIMITER);
-    }
-
-    private static String removeSpaces(String numbers) {
+    private String removeSpaces(String numbers) {
         return numbers.replace(SPACE, "");
     }
 }

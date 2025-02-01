@@ -145,4 +145,15 @@ class StringCalculatorTest {
         // Assert
         assertThat(result).isEqualTo(2);
     }
+
+    @Test
+    void should_not_ignore_number_lesser_than_a_thousand_when_summing() {
+        String numbers = "2, 999";
+
+        // Act
+        int result = stringCalculator.add(numbers);
+
+        // Assert
+        assertThat(result).isEqualTo(1001);
+    }
 }
