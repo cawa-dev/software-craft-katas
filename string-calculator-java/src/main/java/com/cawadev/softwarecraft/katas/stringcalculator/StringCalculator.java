@@ -49,6 +49,7 @@ class StringCalculator {
     private static int sumOfNumbers(String[] numbersArray) {
         return Arrays.stream(numbersArray)
                 .mapToInt(Integer::parseInt)
+                .filter(number ->  number < 1000)
                 .sum();
     }
 
@@ -57,6 +58,6 @@ class StringCalculator {
     }
 
     private static String removeSpaces(String numbers) {
-        return numbers.replaceAll(SPACE, "");
+        return numbers.replace(SPACE, "");
     }
 }

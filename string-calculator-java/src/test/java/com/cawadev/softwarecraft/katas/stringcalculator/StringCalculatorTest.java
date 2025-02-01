@@ -26,7 +26,7 @@ class StringCalculatorTest {
         int result = stringCalculator.add(emptyString);
 
         // Assert
-        assertThat(result).isEqualTo(0);
+        assertThat(result).isZero();
     }
 
     @Test
@@ -133,5 +133,16 @@ class StringCalculatorTest {
         assertThatExceptionOfType(NegativeNumberException.class)
                 .isThrownBy(() -> stringCalculator.add(stringWithNegativeNumber))
                 .withMessage("Negatives not allowed: -2, -3");
+    }
+
+    @Test
+    void should_ignore_number_bigger_than_a_thousand_when_summing() {
+        String numbers = "2, 1001";
+
+        // Act
+        int result = stringCalculator.add(numbers);
+
+        // Assert
+        assertThat(result).isEqualTo(2);
     }
 }
