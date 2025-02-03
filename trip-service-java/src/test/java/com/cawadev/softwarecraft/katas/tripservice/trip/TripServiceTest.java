@@ -4,16 +4,24 @@ import com.cawadev.softwarecraft.katas.tripservice.exception.UserNotLoggedInExce
 import com.cawadev.softwarecraft.katas.tripservice.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static com.cawadev.softwarecraft.katas.tripservice.user.UserBuilder.builder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class TripServiceTest {
 
-    private TripService tripService;
+    TripService tripService;
+
+    @Mock
+    TripDAO tripDAO;
 
     private static final User GUEST = null;
     private static final User ANY_USER = new User();
@@ -25,7 +33,7 @@ class TripServiceTest {
 
     @BeforeEach
     void setUp() {
-        tripService = new TripServiceStub();
+        tripService = new TripService(tripDAO);
     }
 
     @Test
@@ -48,20 +56,14 @@ class TripServiceTest {
 
     @Test
     void should_return_trips_when_user_logged_in_are_friends() {
+        Trip[] trips = {LOS_ANGELES, ROMA};
         User friend = builder().friendsWith(REGISTERED_USER)
-                .withTrips(LOS_ANGELES, ROMA)
+                .withTrips(trips)
                 .build();
 
+        when(tripService.tripsByUser(friend)).thenReturn(List.of(trips));
         List<Trip> result = tripService.getTripsByUser(friend, REGISTERED_USER);
 
-        assertThat(result).containsExactlyInAnyOrder(LOS_ANGELES, ROMA);
-    }
-
-    static class TripServiceStub extends TripService {
-
-        @Override
-        protected List<Trip> tripsByUser(User user) {
-            return user.trips();
-        }
+        assertThat(result).containsExactlyInAnyOrder(trips);
     }
 }
