@@ -15,7 +15,6 @@ class TripServiceTest {
 
     private TripService tripService;
 
-    private User userLoggedIn;
     private static final User GUEST = null;
     private static final User ANY_USER = new User();
     private static final User REGISTERED_USER = new User();
@@ -27,15 +26,12 @@ class TripServiceTest {
     @BeforeEach
     void setUp() {
         tripService = new TripServiceStub();
-        userLoggedIn = REGISTERED_USER;
     }
 
     @Test
     void should_not_validate_user_when_not_logged_in() {
-        userLoggedIn = GUEST;
-
         assertThatExceptionOfType(UserNotLoggedInException.class)
-                .isThrownBy(() -> tripService.getTripsByUser(ANY_USER));
+                .isThrownBy(() -> tripService.getTripsByUser(ANY_USER, GUEST));
     }
 
     @Test
@@ -45,7 +41,7 @@ class TripServiceTest {
                 .withTrips(PARIS)
                 .build();
 
-        List<Trip> result = tripService.getTripsByUser(stranger);
+        List<Trip> result = tripService.getTripsByUser(stranger, REGISTERED_USER);
 
         assertThat(result).isEmpty();
     }
@@ -56,21 +52,16 @@ class TripServiceTest {
                 .withTrips(LOS_ANGELES, ROMA)
                 .build();
 
-        List<Trip> result = tripService.getTripsByUser(friend);
+        List<Trip> result = tripService.getTripsByUser(friend, REGISTERED_USER);
 
         assertThat(result).containsExactlyInAnyOrder(LOS_ANGELES, ROMA);
     }
 
-    class TripServiceStub extends TripService {
+    static class TripServiceStub extends TripService {
 
         @Override
         protected List<Trip> tripsByUser(User user) {
             return user.trips();
-        }
-
-        @Override
-        protected User getLoggedUser() {
-            return userLoggedIn;
         }
     }
 }
