@@ -4,17 +4,21 @@ import com.cawadev.softwarecraft.katas.tripservice.exception.CollaboratorCallExc
 
 public class UserSession {
 
-	private static final UserSession userSession = new UserSession();
-	
-	private UserSession() {
-	}
-	
-	public static UserSession getInstance() {
-		return userSession;
-	}
+    private static UserSession USER_SESSION;
 
-	public User getLoggedUser() {
-		throw new CollaboratorCallException(
-				"UserSession.getLoggedUser() should not be called in an unit test");
-	}
+    private UserSession() {
+    }
+
+    public static synchronized UserSession getInstance() {
+        if (USER_SESSION == null) {
+            return new UserSession();
+        }
+
+        return USER_SESSION;
+    }
+
+    public User getLoggedUser() {
+        throw new CollaboratorCallException(
+                "UserSession.getLoggedUser() should not be called in an unit test");
+    }
 }

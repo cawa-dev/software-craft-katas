@@ -7,8 +7,8 @@ import java.util.List;
 
 public class User {
 
-    private List<Trip> trips = new ArrayList<Trip>();
-    private List<User> friends = new ArrayList<User>();
+    private final List<Trip> trips = new ArrayList<>();
+    private final List<User> friends = new ArrayList<>();
 
     public List<User> getFriends() {
         return friends;
@@ -20,10 +20,6 @@ public class User {
 
     public void addTrip(Trip trip) {
         trips.add(trip);
-    }
-
-    public List<Trip> trips() {
-        return trips;
     }
 
     public boolean isFriendsWith(User anotherUser) {
