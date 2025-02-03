@@ -10,22 +10,26 @@ public class TripService {
 
     private final TripDAO tripDAO;
 
-    public TripService() {
-        tripDAO = new TripDAO();
-    }
-
     public TripService(TripDAO tripDAO) {
         this.tripDAO = tripDAO;
     }
 
     public List<Trip> getTripsByUser(User user, User loggedUser) throws UserNotLoggedInException {
+        validate(loggedUser);
+
+        return user.isFriendsWith(loggedUser)
+                ? tripsByUser(user)
+                : noTrips();
+    }
+
+    private ArrayList<Trip> noTrips() {
+        return new ArrayList<>();
+    }
+
+    private void validate(User loggedUser) {
         if (loggedUser == null) {
             throw new UserNotLoggedInException();
         }
-
-        return user.isFriendsWith(loggedUser)
-                ? tripsByUser(user) :
-                new ArrayList<>();
     }
 
     protected List<Trip> tripsByUser(User user) {
