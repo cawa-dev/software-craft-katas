@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.cawadev.softwarecraft.katas.tripservice.user.UserBuilder.builder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -26,6 +27,7 @@ class TripServiceTest {
     @BeforeEach
     void setUp() {
         tripService = new TripServiceStub();
+        userLoggedIn = REGISTERED_USER;
     }
 
     @Test
@@ -38,10 +40,10 @@ class TripServiceTest {
 
     @Test
     void should_not_return_trips_when_user_logged_in_are_not_friends() {
-        userLoggedIn = REGISTERED_USER;
-        User stranger = new User();
-        stranger.addFriend(ANOTHER_USER);
-        stranger.addTrip(PARIS);
+        User stranger = builder()
+                .friendsWith(ANOTHER_USER)
+                .withTrips(PARIS)
+                .build();
 
         List<Trip> result = tripService.getTripsByUser(stranger);
 
@@ -50,13 +52,11 @@ class TripServiceTest {
 
     @Test
     void should_return_trips_when_user_logged_in_are_friends() {
-        userLoggedIn = REGISTERED_USER;
-        User friends = new User();
-        friends.addFriend(REGISTERED_USER);
-        friends.addTrip(LOS_ANGELES);
-        friends.addTrip(ROMA);
+        User friend = builder().friendsWith(REGISTERED_USER)
+                .withTrips(LOS_ANGELES, ROMA)
+                .build();
 
-        List<Trip> result = tripService.getTripsByUser(friends);
+        List<Trip> result = tripService.getTripsByUser(friend);
 
         assertThat(result).containsExactlyInAnyOrder(LOS_ANGELES, ROMA);
     }
