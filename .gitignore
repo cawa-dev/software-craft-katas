@@ -49,3 +49,9 @@ obj/
 *.sln
 *.vscode
 *.vs
+
+### Gradle ###
+.gradle/
+
+### Kotlin ###
+*.kotlin_module
