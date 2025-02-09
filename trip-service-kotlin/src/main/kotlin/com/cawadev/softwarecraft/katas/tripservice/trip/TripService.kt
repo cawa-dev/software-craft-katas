@@ -7,23 +7,14 @@ import com.cawadev.softwarecraft.katas.tripservice.user.UserSession
 open class TripService {
 
     fun getTripsByUser(user: User): List<Trip> {
-        var tripList: List<Trip> = ArrayList<Trip>()
         val loggedUser: User? = getLoggedInUser()
-        var isFriend: Boolean = false
-        if (loggedUser != null) {
-            for (friend in user.friends) {
-                if (friend == loggedUser) {
-                    isFriend = true
-                    break
-                }
-            }
-            if (isFriend) {
-                tripList = tripsByUser(user)
-            }
-            return tripList
-        } else {
+        if (loggedUser === null) {
             throw UserNotLoggedInException()
         }
+
+        return if (user.isFriendsWith(loggedUser)) {
+            tripsByUser(user)
+        } else emptyList()
     }
 
     open fun tripsByUser(user: User) = TripDAO.findTripsByUser(user)
