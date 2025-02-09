@@ -10,7 +10,6 @@ import kotlin.test.assertContains
 class TripServiceTest {
 
     private lateinit var service: TripService
-    private var loggedInUser: User? = null
 
     companion object {
         private val GUEST: User? = null
@@ -23,15 +22,12 @@ class TripServiceTest {
     @BeforeEach
     fun setUp() {
         service = TripServiceStub()
-        loggedInUser = REGISTERED_USER
     }
 
     @Test
     fun `should not validate the user when not logged in`() {
-        loggedInUser = GUEST
-
         assertThrows<UserNotLoggedInException> {
-            service.getTripsByUser(ANY_USER)
+            service.getTripsByUser(ANY_USER, GUEST)
         }
     }
 
@@ -42,7 +38,7 @@ class TripServiceTest {
             addTrip(PARIS)
         }
 
-        val trips = service.getTripsByUser(stranger)
+        val trips = service.getTripsByUser(stranger, REGISTERED_USER)
 
         assert(trips.isEmpty())
     }
@@ -54,7 +50,7 @@ class TripServiceTest {
             addTrip(PARIS)
         }
 
-        val trips = service.getTripsByUser(friend)
+        val trips = service.getTripsByUser(friend, REGISTERED_USER)
 
         assert(trips.isNotEmpty())
         assertContains(trips, PARIS)
@@ -64,7 +60,5 @@ class TripServiceTest {
 
         override fun tripsByUser(user: User): List<Trip> =
             user.trips
-
-        override fun getLoggedInUser(): User? = loggedInUser
     }
 }
