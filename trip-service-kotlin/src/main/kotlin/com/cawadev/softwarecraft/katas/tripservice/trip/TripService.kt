@@ -3,7 +3,7 @@ package com.cawadev.softwarecraft.katas.tripservice.trip
 import com.cawadev.softwarecraft.katas.tripservice.exception.UserNotLoggedInException
 import com.cawadev.softwarecraft.katas.tripservice.user.User
 
-open class TripService {
+class TripService(private val tripDAO: TripDAO) {
 
     fun getTripsByUser(
         user: User,
@@ -18,5 +18,5 @@ open class TripService {
         } else emptyList()
     }
 
-    open fun tripsByUser(user: User) = TripDAO.findTripsByUser(user)
+    private fun tripsByUser(user: User) = tripDAO.tripsByUser(user)
 }

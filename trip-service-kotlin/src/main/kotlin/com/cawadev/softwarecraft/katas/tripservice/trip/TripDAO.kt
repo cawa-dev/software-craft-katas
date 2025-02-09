@@ -11,4 +11,8 @@ class TripDAO {
             throw CollaboratorCallException("TripDAO should not be invoked on an unit test.")
         }
     }
+
+    fun tripsByUser(user: User): List<Trip> {
+        return findTripsByUser(user)
+    }
 }

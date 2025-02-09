@@ -5,11 +5,15 @@ import com.cawadev.softwarecraft.katas.tripservice.user.User
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import kotlin.test.assertContains
 
 class TripServiceTest {
 
-    private lateinit var service: TripService
+    private lateinit var tripDAO: TripDAO
+
+    private lateinit var tripService: TripService
 
     companion object {
         private val GUEST: User? = null
@@ -21,13 +25,14 @@ class TripServiceTest {
 
     @BeforeEach
     fun setUp() {
-        service = TripServiceStub()
+        tripDAO = mock()
+        tripService = TripService(tripDAO)
     }
 
     @Test
     fun `should not validate the user when not logged in`() {
         assertThrows<UserNotLoggedInException> {
-            service.getTripsByUser(ANY_USER, GUEST)
+            tripService.getTripsByUser(ANY_USER, GUEST)
         }
     }
 
@@ -38,7 +43,7 @@ class TripServiceTest {
             addTrip(PARIS)
         }
 
-        val trips = service.getTripsByUser(stranger, REGISTERED_USER)
+        val trips = tripService.getTripsByUser(stranger, REGISTERED_USER)
 
         assert(trips.isEmpty())
     }
@@ -49,16 +54,11 @@ class TripServiceTest {
             addFriend(REGISTERED_USER)
             addTrip(PARIS)
         }
+        `when`(tripDAO.tripsByUser(friend)).thenReturn(listOf(PARIS))
 
-        val trips = service.getTripsByUser(friend, REGISTERED_USER)
+        val trips = tripService.getTripsByUser(friend, REGISTERED_USER)
 
         assert(trips.isNotEmpty())
         assertContains(trips, PARIS)
-    }
-
-    inner class TripServiceStub : TripService() {
-
-        override fun tripsByUser(user: User): List<Trip> =
-            user.trips
     }
 }
