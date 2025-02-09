@@ -15,8 +15,10 @@ class TripService(private val tripDAO: TripDAO) {
 
         return if (user.isFriendsWith(loggedInUser)) {
             tripsByUser(user)
-        } else emptyList()
+        } else noTrips()
     }
+
+    private fun noTrips(): List<Trip> = emptyList()
 
     private fun tripsByUser(user: User) = tripDAO.tripsByUser(user)
 }
